@@ -9,7 +9,7 @@
     <input type="button" value="Click me"/>
 </div>
 <!--<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>');</script>-->
-<script src="js/vendor/jquery-1.10.2.min.js"></script>
+<script src="js/vendor/jquery-1.11.0.min.js"></script>
 <script>
     $(function(){
         var pjax_pre_html = "";
@@ -21,7 +21,7 @@
             pjax_pre_html = $pjax_ele.html();
 
             $pjax_ele.load("pjax.html .pjax", function(){
-                history.pushState({page:1}, "title 1", "#pjax");
+                history.pushState({page:"#pjax"}, "title 1", "#pjax");
                 console.log("loaded successful");
             });
         });
@@ -34,6 +34,14 @@
             if ( JSON.stringify(event.state) === "null" ) {
                 $pjax_ele.html( pjax_pre_html );
             }
+
+            //if page #pjax
+            if ( event.state ){
+                if ( event.state["page"] === "#pjax" ){
+                    $pjax_ele.load("pjax.html .pjax");
+                }
+            }
+
         }
 
     });
